@@ -71,6 +71,13 @@ dependencies {
     kapt(libs.dagger.compiler)
     kapt(libs.dagger.android.processor)
 
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.rxjava2)
+
     testImplementation(libs.truth)
 
     testImplementation(libs.junit)

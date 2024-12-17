@@ -26,23 +26,17 @@ import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.example.noorointerview.R
-import com.example.noorointerview.model.response.Current
-import com.example.noorointerview.model.response.Location
+import com.example.noorointerview.database.entities.SavedLocation
 
 @Composable
-fun SearchCard(
+fun HistoryCard(
     modifier: Modifier = Modifier,
     context: Context? = null,
-    locationSearch: Location? = null,
-    currentWeather: Current? = null,
-    clickWeatherInfo: () -> Unit = {}
+    savedLocation: SavedLocation? = null
 ) {
     Card (
         modifier = modifier,
         shape = RoundedCornerShape(15.dp),
-        onClick = {
-            clickWeatherInfo.invoke()
-        }
     ) {
         Box (
             modifier = Modifier
@@ -53,14 +47,13 @@ fun SearchCard(
                     .align(Alignment.CenterStart)
                     .padding(
                         start = 22.dp,
-                        top = 18.dp,
-                        bottom = 5.dp
+                        top = 18.dp
                     )
                     .wrapContentSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                locationSearch?.name?.let {
+                savedLocation?.name?.let {
                     Text (
                         text = it,
                         fontSize = 20.sp,
@@ -71,7 +64,7 @@ fun SearchCard(
                 Row (
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    currentWeather?.getRoundedTempF()?.let {
+                    savedLocation?.tempF?.let {
                         Text (
                             text = String.format(stringResource(R.string.format_int), it),
                             fontSize = 60.sp,
@@ -94,9 +87,9 @@ fun SearchCard(
 
             val imageRequest = context?.let {
                 ImageRequest.Builder(it)
-                    .data(currentWeather?.condition?.getImageUrl())
-                    .memoryCacheKey(currentWeather?.condition?.getImageUrl())
-                    .diskCacheKey(currentWeather?.condition?.getImageUrl())
+                    .data(savedLocation?.imageUrl)
+                    .memoryCacheKey(savedLocation?.imageUrl)
+                    .diskCacheKey(savedLocation?.imageUrl)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_foreground)
                     .fallback(R.drawable.ic_launcher_foreground)
@@ -119,11 +112,23 @@ fun SearchCard(
                 contentScale = ContentScale.Crop
             )
         }
+        savedLocation?.lastUpdated?.let {
+            Text (
+                modifier = Modifier
+                    .padding(
+                        start = 18.dp,
+                        bottom = 5.dp
+                    ),
+                text = String.format(stringResource(R.string.format_last_updated), it),
+                fontSize = 12.sp,
+                fontFamily = PoppinsFontLight
+            )
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun SearchCardPreview() {
-    SearchCard()
+fun HistoryCardPreview() {
+    HistoryCard()
 }

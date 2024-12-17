@@ -17,16 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetworkModule {
     @Provides
     fun provideWeatherSearchService(): WeatherSearchService {
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(Constant.BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .client(
-//                OkHttpClient.Builder()
-//                    .addInterceptor { addApiKeyQuery(it) }.build()
-//            )
-//            .build()
-//        return retrofit.create(WeatherSearchService::class.java)
-
         val gson = GsonBuilder().create()
         val retrofit = Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -48,10 +38,4 @@ class NetworkModule {
                 Constant.API_KEY).build())
             .build()
     )
-
-    @Module
-    interface NetworkRepositoryModule {
-        @Binds
-        fun provideWeatherSearchRepository(weatherSearchRepository: WeatherSearchRepository): WeatherSearchRepository
-    }
 }

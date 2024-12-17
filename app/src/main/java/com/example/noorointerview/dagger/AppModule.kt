@@ -1,6 +1,7 @@
 package com.example.noorointerview.dagger
 
 import android.app.Application
+import com.example.noorointerview.database.LocationDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,5 +12,11 @@ class AppModule(private val application: MainApplication) {
     @Singleton
     fun getApplication(): Application {
         return application
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationDatabase(): LocationDatabase {
+        return LocationDatabase.getDatabase(application)
     }
 }

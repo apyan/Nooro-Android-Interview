@@ -1,6 +1,7 @@
 package com.example.noorointerview.model.response
 
 import com.google.gson.annotations.SerializedName
+import kotlin.math.roundToInt
 
 data class LocationSearchResponse(
     @SerializedName("location")
@@ -21,6 +22,8 @@ data class Location(
 )
 
 data class Current(
+    @SerializedName("last_updated")
+    val lastUpdated: String? = null,
     @SerializedName("last_updated_epoch")
     val lastUpdatedEpoch: Int? = null,
     @SerializedName("condition")
@@ -37,7 +40,13 @@ data class Current(
     val feelsLikeC: Double? = null,
     @SerializedName("feelslike_f")
     val feelsLikeF: Double? = null,
-)
+) {
+    fun getRoundedTempF(): Int? = tempF?.roundToInt()
+    fun getRoundedTempC(): Int? = tempC?.roundToInt()
+    fun getRoundedFeelsLikeF(): Int? = feelsLikeF?.roundToInt()
+    fun getRoundedTFeelsLikeC(): Int? = feelsLikeC?.roundToInt()
+    fun getRoundedUV(): Int? = uv?.roundToInt()
+}
 
 data class Condition(
     @SerializedName("text")

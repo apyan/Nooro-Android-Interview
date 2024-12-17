@@ -15,7 +15,9 @@
     <string name="status_uv">UV</string>
     <string name="status_feels_like">Feels Like</string>
 
-    <string name="format_temperature_f">%d\u2109</string>
-    <string name="format_temperature_c">\u2103%d</string>
+    <string name="format_temperature_f">%d\u00B0</string>
+    <string name="format_temperature_c">\u00B0%d</string>
     <string name="format_percentage">%d%%</string>
+    <string name="format_int">%d</string>
+    <string name="format_last_updated">Last Updated: %s</string>
 </resources>
